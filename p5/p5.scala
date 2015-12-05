@@ -15,7 +15,6 @@ object p5 {
     val currentIndex = previousIndex + 1
     val priorReduced = numbers.take(previousIndex).map(pair2 => pair2._2)
     val reduced = removeFactors(currentIndex, priorReduced)
-    (currentIndex, priorReduced)
     (currentIndex, reduced)
   }
 
