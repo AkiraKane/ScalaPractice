@@ -9,6 +9,8 @@ lazy val commonSettings = Seq(
 lazy val p1 = (project in file("p1")).
   settings(commonSettings: _*).
   settings(
-    name := "p1",
+    name := "p1"
+  )
+
     libraryDependencies += scalaz
   )
