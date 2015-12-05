@@ -12,5 +12,10 @@ lazy val p1 = (project in file("p1")).
     name := "p1"
   )
 
-    libraryDependencies += scalaz
+lazy val p2 = (project in file("p2")).
+  settings(commonSettings: _*).
+  settings(
+    name := "p2"
+  )
+
   )
