@@ -1,4 +1,9 @@
-val scalaz = "org.scalaz" %% "scalaz-core" % "7.2.0"
+val scalaz = Seq(
+  "org.scalaz" %% "scalaz-core" % "7.2.0",
+  "org.scalaz" %% "scalaz-effect" % "7.2.0",
+  // "org.scalaz" %% "scalaz-typelevel" % "7.2.0",
+  "org.scalaz" %% "scalaz-scalacheck-binding" % "7.2.0" % "test"
+)
 
 lazy val commonSettings = Seq(
   organization := "com.daystrom-data-concepts",
@@ -70,4 +75,12 @@ lazy val p11 = (project in file("p11")).
   settings(commonSettings: _*).
   settings(
     name := "p11"
+  )
+
+lazy val p12 = (project in file("p12")).
+  settings(commonSettings: _*).
+  settings(
+    name := "p12",
+    scalaVersion := "2.11.7",
+    libraryDependencies ++= scalaz
   )
