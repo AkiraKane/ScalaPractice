@@ -21,16 +21,14 @@ object p12 {
     if (factor != n) Some(factor); else None
   }
 
-  def factorize(n: BigInt) : State[Map[BigInt, Int], Unit] = modify { s : Map[BigInt, Int] =>
-    {
+  def factorize(n: BigInt) : State[Map[BigInt, Int], Unit] = modify { s : Map[BigInt, Int] => {
       findFactor(n) match {
-        case Some(prime) => {
-          val (s1, _) = (for(
-            _ <- factorize(n / prime);
-            _ <- modify({ s2 : Map[BigInt, Int] => s2 + (prime -> (s2.getOrElse(prime, 0) + 1)) })
-          ) yield ()).run(s)
-          s1
-        }
+        case Some(prime) => {(
+          for(
+              _ <- factorize(n / prime);
+              _ <- modify({ s2 : Map[BigInt, Int] => s2 + (prime -> (s2.getOrElse(prime, 0) + 1)) })
+            ) yield ()).run(s)._1
+          }
         case None => s + (n -> (s.getOrElse(n, 0) + 1))
       }
     }
