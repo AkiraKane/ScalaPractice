@@ -1,7 +1,6 @@
 val scalaz = Seq(
   "org.scalaz" %% "scalaz-core" % "7.2.0",
   "org.scalaz" %% "scalaz-effect" % "7.2.0",
-  // "org.scalaz" %% "scalaz-typelevel" % "7.2.0",
   "org.scalaz" %% "scalaz-scalacheck-binding" % "7.2.0" % "test"
 )
 
@@ -83,4 +82,11 @@ lazy val p12 = (project in file("p12")).
     name := "p12",
     scalaVersion := "2.11.7",
     libraryDependencies ++= scalaz
+  )
+
+lazy val p14 = (project in file("p14")).
+  settings(commonSettings: _*).
+  settings(
+    name := "p14",
+    scalaVersion := "2.11.7"
   )
