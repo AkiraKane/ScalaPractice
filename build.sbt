@@ -84,9 +84,30 @@ lazy val p12 = (project in file("p12")).
     libraryDependencies ++= scalaz
   )
 
+lazy val p13 = (project in file("p13")).
+  settings(commonSettings: _*).
+  settings(
+    name := "p13",
+    scalaVersion := "2.11.7"
+  )
+
 lazy val p14 = (project in file("p14")).
   settings(commonSettings: _*).
   settings(
     name := "p14",
+    scalaVersion := "2.11.7"
+  )
+
+lazy val p15 = (project in file("p15")).
+  settings(commonSettings: _*).
+  settings(
+    name := "p15",
+    scalaVersion := "2.11.7"
+  )
+
+lazy val p16 = (project in file("p16")).
+  settings(commonSettings: _*).
+  settings(
+    name := "p16",
     scalaVersion := "2.11.7"
   )
