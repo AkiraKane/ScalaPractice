@@ -97,3 +97,10 @@ lazy val p14 = (project in file("p14")).
     name := "p14",
     scalaVersion := "2.11.7"
   )
+
+lazy val p15 = (project in file("p15")).
+  settings(commonSettings: _*).
+  settings(
+    name := "p15",
+    scalaVersion := "2.11.7"
+  )
