@@ -21,6 +21,7 @@ object p12 {
     if (factor != n) Some(factor); else None
   }
 
+  /* https://softwarecorner.wordpress.com/2013/08/29/scalaz-state-monad/ */
   def factorize(n: BigInt) : State[Map[BigInt, Int], Unit] = modify { s : Map[BigInt, Int] => {
       findFactor(n) match {
         case Some(prime) => {(

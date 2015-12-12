@@ -45,11 +45,11 @@ object p11 {
     x <- List.range(0, 20-4);
     y <- List.range(0, 20)) yield pairToProduct((x,y), two)
 
-    val threes = for(
+  val threes = for(
     x <- List.range(0, 20-4);
     y <- List.range(0, 20-4)) yield pairToProduct((x,y), three)
 
-    val fours = for(
+  val fours = for(
     x <- List.range(0, 20-4);
     y <- List.range(0, 20-4)) yield pairToProduct((x,y), four)
 
