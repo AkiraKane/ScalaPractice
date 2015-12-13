@@ -7,7 +7,7 @@ val scalaz = Seq(
 lazy val commonSettings = Seq(
   organization := "com.daystrom-data-concepts",
   version := "33",
-  scalaVersion := "2.11.4"
+  scalaVersion := "2.11.7"
 )
 
 lazy val p1 = (project in file("p1")).
@@ -80,76 +80,71 @@ lazy val p12 = (project in file("p12")).
   settings(commonSettings: _*).
   settings(
     name := "p12",
-    scalaVersion := "2.11.7",
     libraryDependencies ++= scalaz
   )
 
 lazy val p13 = (project in file("p13")).
   settings(commonSettings: _*).
   settings(
-    name := "p13",
-    scalaVersion := "2.11.7"
+    name := "p13"
   )
 
 lazy val p14 = (project in file("p14")).
   settings(commonSettings: _*).
   settings(
-    name := "p14",
-    scalaVersion := "2.11.7"
+    name := "p14"
   )
 
 lazy val p15 = (project in file("p15")).
   settings(commonSettings: _*).
   settings(
-    name := "p15",
-    scalaVersion := "2.11.7"
+    name := "p15"
   )
 
 lazy val p16 = (project in file("p16")).
   settings(commonSettings: _*).
   settings(
-    name := "p16",
-    scalaVersion := "2.11.7"
+    name := "p16"
   )
 
 lazy val p17 = (project in file("p17")).
   settings(commonSettings: _*).
   settings(
-    name := "p17",
-    scalaVersion := "2.11.7"
+    name := "p17"
   )
 
 lazy val p18 = (project in file("p18")).
   settings(commonSettings: _*).
   settings(
-    name := "p18",
-    scalaVersion := "2.11.7"
+    name := "p18"
   )
 
 lazy val p19 = (project in file("p19")).
   settings(commonSettings: _*).
   settings(
-    name := "p19",
-    scalaVersion := "2.11.7"
+    name := "p19"
   )
 
 lazy val p20 = (project in file("p20")).
   settings(commonSettings: _*).
   settings(
-    name := "p20",
-    scalaVersion := "2.11.7"
+    name := "p20"
   )
 
 lazy val p21 = (project in file("p21")).
   settings(commonSettings: _*).
   settings(
-    name := "p21",
-    scalaVersion := "2.11.7"
+    name := "p21"
   )
 
 lazy val p23 = (project in file("p23")).
   settings(commonSettings: _*).
   settings(
-    name := "p23",
-    scalaVersion := "2.11.7"
+    name := "p23"
+  )
+
+lazy val p24 = (project in file("p24")).
+  settings(commonSettings: _*).
+  settings(
+    name := "p24"
   )
