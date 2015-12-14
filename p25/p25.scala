@@ -1,3 +1,5 @@
+package com.daystrom_data_concepts
+
 object p25 {
   val zero = BigInt(0)
   val one = BigInt(1)
