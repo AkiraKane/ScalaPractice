@@ -172,3 +172,9 @@ lazy val p28 = (project in file("p28")).
   settings(
     name := "p28"
   )
+
+lazy val p29 = (project in file("p29")).
+  settings(commonSettings: _*).
+  settings(
+    name := "p29"
+  )
