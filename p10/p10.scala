@@ -1,3 +1,5 @@
+package com.daystrom_data_concepts
+
 object p10 {
   val below = 2000000
   val divisors = List.range(2,1415)

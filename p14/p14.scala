@@ -1,3 +1,5 @@
+package com.daystrom_data_concepts
+
 object p14 {
 
   val limit = BigInt(1000000)

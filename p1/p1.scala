@@ -1,3 +1,5 @@
+package com.daystrom_data_concepts
+
 object p1 {
   def main(args: Array[String]) = {
     val list = List.range(1,1000)
