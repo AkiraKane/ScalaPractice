@@ -1,3 +1,5 @@
+package com.daystrom_data_concepts
+
 object p7 {
 
   def coprime(n : BigInt, list : Stream[BigInt]) : BigInt = {

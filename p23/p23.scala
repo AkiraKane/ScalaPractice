@@ -1,3 +1,5 @@
+package com.daystrom_data_concepts
+
 object p23 {
 
   def d(n : Int) : Int = List.range(1,n).filter({ n % _ == 0 }).sum

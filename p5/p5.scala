@@ -1,3 +1,5 @@
+package com.daystrom_data_concepts
+
 object p5 {
 
   def removeFactors(n : Int, list : Stream[Int]) : Int = {

@@ -1,3 +1,5 @@
+package com.daystrom_data_concepts
+
 object p9 {
   import scala.math
 

@@ -1,3 +1,5 @@
+package com.daystrom_data_concepts
+
 object p6 {
   val oneHundred = List.range(1,101)
   val oneHundredSum = oneHundred.sum

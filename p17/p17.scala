@@ -1,3 +1,5 @@
+package com.daystrom_data_concepts
+
 object p17 {
 
   def translate(n : Int) : Int = {
