@@ -79,6 +79,5 @@ object p54 {
 
   def main(args: Array[String]) = {
     println(solution)
-    // println(score(digest(List("2D", "9C", "AS", "AH", "AC"))))
   }
 }
