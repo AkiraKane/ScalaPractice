@@ -1,6 +1,6 @@
 package com.daystrom_data_concepts
 
-import scala.math.{ceil,sqrt}
+import scala.math.{ceil,floor,sqrt}
 
 object Euler {
   lazy private val zero = BigInt(0)
@@ -56,4 +56,49 @@ object Euler {
 
   def gcd(u : Int, v : Int) : Int = if (v != 0) gcd(v, u % v); else u
   def gcdBig(u : BigInt, v : BigInt) : BigInt = if (v != 0) gcdBig(v, u % v); else u
+
+  def sqrtBig(n : Int, iterations : Int = 100) = {
+    val mc = new java.math.MathContext(iterations)
+    val N = BigDecimal(n,mc)
+    val two = BigDecimal(2,mc)
+
+    var xn = BigDecimal(sqrt(n), mc)
+    var i = iterations
+    while (i >= 0) {
+      val change = (xn - N/xn)/two
+      xn -= change
+      i -= 1
+    }
+    xn
+  }
+
+  def continuedFraction(x : BigDecimal) = {
+    val mc = new java.math.MathContext(x.precision)
+    val zero = BigDecimal(0)
+    val one = BigDecimal(1, mc)
+    val fractional = x % one
+    val whole = (x - fractional).toInt
+
+    Stream.iterate((whole,fractional))({ case(_,fractional) =>
+      val x = if (fractional != zero) one/fractional; else zero
+      val fractional1 = x % one
+      ((x - fractional1).toInt, fractional1)})
+  }
+
+  // https://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Continued_fraction_expansion
+  def cfRoot(S : Int) = {
+    val m0 = 0
+    val d0 = 1
+    val a0 = floor(sqrt(S)).toInt
+
+    if (a0 * a0 == S) Stream.iterate((a0,0,0))({ _ => (0,0,0) })
+    else {
+      Stream.iterate((a0, d0, m0))({ case(an,dn,mn) =>
+        val mn1 = dn*an - mn
+        val dn1 = (S - mn1*mn1)/dn
+        val an1 = floor((a0 + mn1)/dn1).toInt
+        (an1, dn1, mn1)
+      })
+    }
+  }
 }
