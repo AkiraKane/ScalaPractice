@@ -1,17 +1,17 @@
 package com.daystrom_data_concepts
 
+import com.daystrom_data_concepts._
+
 object p55 {
   val limit1 = 10000
   val limit2 = 50
-
-  def palindrome(str : String) = (str == str.reverse)
 
   def lychrel(n : BigInt) = {
     Iterator.iterate(n)({ n => n + BigInt(n.toString.reverse) })
       .drop(1)
       .take(limit2)
       .map(_.toString)
-      .filter(palindrome(_))
+      .filter(Euler.isPalindrome)
       .take(1)
       .isEmpty
   }

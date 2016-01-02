@@ -2,7 +2,7 @@ package com.daystrom_data_concepts
 
 object p11 {
 
-  import scala.math
+  import scala.math.max
 
   def pairPlus(xy1 : (Int, Int), xy2 : (Int, Int)) = {
     (xy1._1 + xy2._1, xy1._2 + xy2._2)
@@ -56,6 +56,6 @@ object p11 {
     y <- List.range(0, 20-4)) yield pairToProduct((x,y), four)
 
   def main(args: Array[String]) = {
-    println((ones ++ twos ++ threes ++ fours).reduce(math.max))
+    println((ones ++ twos ++ threes ++ fours).reduce(max))
   }
 }
