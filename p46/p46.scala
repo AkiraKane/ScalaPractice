@@ -1,21 +1,12 @@
 package com.daystrom_data_concepts
 
+import com.daystrom_data_concepts._
+
 object p46 {
   import math.{ceil,sqrt}
 
-  def prime(n : BigInt) : Boolean = {
-    var a : BigInt = 2
-    while (a < n) {
-      if (n % a == 0) return false
-      a += 1
-    }
-    return true
-  }
-
-  val primes = Stream.iterate(BigInt(2))(_ + 1).filter(prime(_))
-
   def writable(n : BigInt) = {
-    primes
+    Euler.primesBig
       .takeWhile(_ < n)
       .flatMap({ a =>
         Iterator.iterate(BigInt(1))(_ + 1)
@@ -27,7 +18,7 @@ object p46 {
   }
 
   lazy val solution = Iterator.iterate(BigInt(3))(_ + 2)
-    .filter(!prime(_))
+    .filter(!Euler.isPrimeBig(_))
     .filter(!writable(_))
     .next
 

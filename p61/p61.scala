@@ -1,22 +1,21 @@
 package com.daystrom_data_concepts
 
+import com.daystrom_data_concepts._
+
 object p61 {
-  val natural = Stream.iterate(1)(_ + 1)
-
-  val triangular = natural.map({ n => n*(n+1)/2 })
-  val square     = natural.map({ n => n*n })
-  val pentagonal = natural.map({ n => n*(3*n-1)/2 })
-  val hexagonal  = natural.map({ n => n*(2*n-1) })
-  val heptagonal = natural.map({ n => n*(5*n-3)/2 })
-  val octagonal  = natural.map({ n => n*(3*n-2) })
-
   val lower = 1000
   val upper = 10000
   val size = 6
 
-  val numberStreams = List(triangular, square, pentagonal, hexagonal, heptagonal, octagonal)
-    .map({ list => list.dropWhile(_ < lower).takeWhile(_ < upper) })
-    .take(size)
+  val numberStreams =
+    List(Euler.triangular,
+      Euler.square,
+      Euler.pentagonal,
+      Euler.hexagonal,
+      Euler.heptagonal,
+      Euler.octagonal)
+      .map({ list => list.dropWhile(_ < lower).takeWhile(_ < upper) })
+      .take(size)
 
   def compatible(a : Int, b : Int) = if (a == -1) true; else ((a % 100) == (b / 100))
 

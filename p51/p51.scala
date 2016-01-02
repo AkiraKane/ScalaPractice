@@ -1,10 +1,8 @@
 package com.daystrom_data_concepts
 
+import com.daystrom_data_concepts._
+
 object p51 {
-  def prime(n : Int) = Iterator.from(2).takeWhile({ m => (m <= math.sqrt(n)) && (m < n) }).forall(n % _ != 0)
-
-  val primes = Stream.from(2).filter(prime(_))
-
   def change(p : Int) = {
     val pStr = p.toString
 
@@ -23,7 +21,7 @@ object p51 {
               .mkString })
             .filter(_.head != '0')
             .map(_.toInt)
-            .filter(prime(_))
+            .filter(Euler.isPrime)
             .length
         } else 0
       })
@@ -31,7 +29,7 @@ object p51 {
       .foldLeft(0)(math.max(_,_))
   }
 
-  lazy val solution = primes.toIterator
+  lazy val solution = Euler.primes.toIterator
     .takeWhile(_ < 1000000)
     .map({ p => (p, change(p)) })
     .filter(_._2 == 8)

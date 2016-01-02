@@ -1,19 +1,16 @@
 package com.daystrom_data_concepts
 
-object p4 {
-  import scala.math
+import com.daystrom_data_concepts._
 
-  def isPalindrome(n : Int) = {
-    val str = n.toString
-    str == str.reverse
-  }
+object p4 {
+  import scala.math.max
 
   val candidates = for (
     x <- List.range(999,99,-1);
     y <- List.range(999,99,-1);
-    if isPalindrome(x*y)) yield x*y
+    if Euler.isPalindrome(x*y)) yield x*y
 
   def main(args: Array[String]) = {
-    println(candidates.reduce(math.max))
+    println(candidates.reduce(max))
   }
 }

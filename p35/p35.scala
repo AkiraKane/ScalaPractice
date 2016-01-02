@@ -1,11 +1,11 @@
 package com.daystrom_data_concepts
 
+import com.daystrom_data_concepts._
+
 object p35 {
 
   val limit = 1000000
   val sqrtLimit = 1000
-
-  def prime(n : Int) = List.range(2,sqrtLimit+1).takeWhile(_ < n).forall(n % _ != 0)
 
   def allRotations(n : Int) : List[Int] = {
     val str = n.toString
@@ -14,7 +14,7 @@ object p35 {
       .map(_.toInt)
   }
 
-  def pred(n : Int) = allRotations(n).forall(prime)
+  def pred(n : Int) = allRotations(n).forall(Euler.isPrime)
 
   val solution = Stream.from(0).take(limit).drop(2).filter(pred)
 

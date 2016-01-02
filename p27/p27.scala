@@ -1,15 +1,11 @@
 package com.daystrom_data_concepts
 
-object p27 {
-  def isPrime(n : Int) = {
-    var i = math.ceil(math.abs(math.sqrt(n)))
-    while (i > 1) { if (n % i == 0) i = 0; else i -= 1 }
-    if (i == 1) true; else false
-  }
+import com.daystrom_data_concepts._
 
+object p27 {
   def score(a : Int, b : Int) = {
     var n = 0
-    while (isPrime(n*n + a*n + b)) n += 1
+    while (Euler.isPrime(n*n + a*n + b)) n += 1
     n
   }
 

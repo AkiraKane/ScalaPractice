@@ -1,13 +1,13 @@
 package com.daystrom_data_concepts
 
+import com.daystrom_data_concepts._
+
 object p42 {
   import scala.io.Source
 
-  val triangles = Stream.from(1).map({ n => n*(n+1)/2 })
-
   def score(str : String) = str.map(_ - 'A' + 1).sum
 
-  def isTriangle(n : Int) = triangles.takeWhile(_ <= n).exists(_ == n)
+  def isTriangle(n : Int) = Euler.triangular.takeWhile(_ <= n).exists(_ == n)
 
   val solution = Source.fromFile("p42/p042_words.txt")
     .mkString.split(",").toList

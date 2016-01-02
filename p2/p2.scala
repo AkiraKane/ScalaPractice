@@ -1,8 +1,10 @@
 package com.daystrom_data_concepts
 
+import com.daystrom_data_concepts._
+
 object p2 {
   // http://derekwyatt.org/2011/07/29/understanding-scala-streams-through-fibonacci/
-  lazy val fibs : Stream[Int] = 0 #:: 1 #:: fibs.zip(fibs.tail).map {n => n._1 + n._2}
+  lazy val fibs = Euler.fibs
 
   def main(args: Array[String]) = {
     val list = fibs

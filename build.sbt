@@ -10,6 +10,12 @@ lazy val commonSettings = Seq(
   scalaVersion := "2.11.7"
 )
 
+lazy val Euler = (project in file("Euler")).
+  settings(commonSettings: _*).
+  settings(
+    name := "Euler"
+  )
+
 lazy val p1 = (project in file("p1")).
   settings(commonSettings: _*).
   settings(
@@ -17,18 +23,21 @@ lazy val p1 = (project in file("p1")).
   )
 
 lazy val p2 = (project in file("p2")).
+  dependsOn(Euler).
   settings(commonSettings: _*).
   settings(
     name := "p2"
   )
 
 lazy val p3 = (project in file("p3")).
+  dependsOn(Euler).
   settings(commonSettings: _*).
   settings(
     name := "p3"
   )
 
 lazy val p4 = (project in file("p4")).
+  dependsOn(Euler).
   settings(commonSettings: _*).
   settings(
     name := "p4"
@@ -47,6 +56,7 @@ lazy val p6 = (project in file("p6")).
   )
 
 lazy val p7 = (project in file("p7")).
+  dependsOn(Euler).
   settings(commonSettings: _*).
   settings(
     name := "p7"
@@ -65,6 +75,7 @@ lazy val p9 = (project in file("p9")).
   )
 
 lazy val p10 = (project in file("p10")).
+  dependsOn(Euler).
   settings(commonSettings: _*).
   settings(
     name := "p10"
@@ -77,6 +88,7 @@ lazy val p11 = (project in file("p11")).
   )
 
 lazy val p12 = (project in file("p12")).
+  dependsOn(Euler).
   settings(commonSettings: _*).
   settings(
     name := "p12",
@@ -156,6 +168,7 @@ lazy val p24 = (project in file("p24")).
   )
 
 lazy val p25 = (project in file("p25")).
+  dependsOn(Euler).
   settings(commonSettings: _*).
   settings(
     name := "p25"
@@ -168,6 +181,7 @@ lazy val p26 = (project in file("p26")).
   )
 
 lazy val p27 = (project in file("p27")).
+  dependsOn(Euler).
   settings(commonSettings: _*).
   settings(
     name := "p27"
@@ -204,6 +218,7 @@ lazy val p32 = (project in file("p32")).
   )
 
 lazy val p33 = (project in file("p33")).
+  dependsOn(Euler).
   settings(commonSettings: _*).
   settings(
     name := "p33"
@@ -216,6 +231,7 @@ lazy val p34 = (project in file("p34")).
   )
 
 lazy val p35 = (project in file("p35")).
+  dependsOn(Euler).
   settings(commonSettings: _*).
   settings(
     name := "p35"
@@ -228,6 +244,7 @@ lazy val p36 = (project in file("p36")).
   )
 
 lazy val p37 = (project in file("p37")).
+  dependsOn(Euler).
   settings(commonSettings: _*).
   settings(
     name := "p37"
@@ -252,12 +269,14 @@ lazy val p40 = (project in file("p40")).
   )
 
 lazy val p41 = (project in file("p41")).
+  dependsOn(Euler).
   settings(commonSettings: _*).
   settings(
     name := "p41"
   )
 
 lazy val p42 = (project in file("p42")).
+  dependsOn(Euler).
   settings(commonSettings: _*).
   settings(
     name := "p42"
@@ -276,12 +295,14 @@ lazy val p44 = (project in file("p44")).
   )
 
 lazy val p45 = (project in file("p45")).
+  dependsOn(Euler).
   settings(commonSettings: _*).
   settings(
     name := "p45"
   )
 
 lazy val p46 = (project in file("p46")).
+  dependsOn(Euler).
   settings(commonSettings: _*).
   settings(
     name := "p46"
@@ -300,6 +321,7 @@ lazy val p48 = (project in file("p48")).
   )
 
 lazy val p49 = (project in file("p49")).
+  dependsOn(Euler).
   settings(commonSettings: _*).
   settings(
     name := "p49"
@@ -312,6 +334,7 @@ lazy val p50 = (project in file("p50")).
   )
 
 lazy val p51 = (project in file("p51")).
+  dependsOn(Euler).
   settings(commonSettings: _*).
   settings(
     name := "p51"
@@ -336,6 +359,7 @@ lazy val p54 = (project in file("p54")).
   )
 
 lazy val p55 = (project in file("p55")).
+  dependsOn(Euler).
   settings(commonSettings: _*).
   settings(
     name := "p55"
@@ -348,12 +372,14 @@ lazy val p56 = (project in file("p56")).
   )
 
 lazy val p57 = (project in file("p57")).
+  dependsOn(Euler).
   settings(commonSettings: _*).
   settings(
     name := "p57"
   )
 
 lazy val p58 = (project in file("p58")).
+  dependsOn(Euler).
   settings(commonSettings: _*).
   settings(
     name := "p58"
@@ -366,12 +392,14 @@ lazy val p59 = (project in file("p59")).
   )
 
 lazy val p60 = (project in file("p60")).
+  dependsOn(Euler).
   settings(commonSettings: _*).
   settings(
     name := "p60"
   )
 
 lazy val p61 = (project in file("p61")).
+  dependsOn(Euler).
   settings(commonSettings: _*).
   settings(
     name := "p61"

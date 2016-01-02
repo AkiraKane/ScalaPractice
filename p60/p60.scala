@@ -1,12 +1,10 @@
 package com.daystrom_data_concepts
 
-object p60 {
-  def isPrime(n : Int) : Boolean =
-    if (n != 1) Iterator.iterate(2)(_ + 1).takeWhile({ m => m * m <= n }).forall(n % _ != 0)
-    else false
+import com.daystrom_data_concepts._
 
+object p60 {
   def compatible(a : Int, b : Int) : Boolean =
-    isPrime((a.toString ++ b.toString).toInt) && isPrime((b.toString ++ a.toString).toInt)
+    Euler.isPrime((a.toString ++ b.toString).toInt) && Euler.isPrime((b.toString ++ a.toString).toInt)
 
   val size = 5
   val limit = 10000
@@ -23,7 +21,7 @@ object p60 {
     }
   }
 
-  lazy val primes = Stream.iterate(2)(_ + 1).filter(isPrime(_))
+  lazy val primes = Stream.iterate(2)(_ + 1).filter(Euler.isPrime)
 
   lazy val candidates = primes
     .filter({ p => (p % 3 == 0) || (p % 3 == 1) })
