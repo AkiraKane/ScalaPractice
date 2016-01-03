@@ -11,6 +11,9 @@ object Euler {
   lazy val fibs : Stream[Int] = 0 #:: 1 #:: fibs.zip(fibs.tail).map {n => n._1 + n._2}
   lazy val fibsBig : Stream[BigInt] = zero #:: one #:: fibsBig.zip(fibsBig.tail).map {n => n._1 + n._2}
 
+  /**
+   * Test the primality of an Int.
+   */
   def isPrime(n : Int) = {
     if (n == 1) false
     else if (n == 2) true
@@ -21,6 +24,9 @@ object Euler {
     }
   }
 
+  /**
+   * Test the primality of a BigInt.
+   */
   def isPrimeBig(n : BigInt) = {
     if (n == 1) false
     else if (n == 2) true
@@ -54,9 +60,16 @@ object Euler {
   lazy val heptagonalBig = naturalBig.map({ n => n*(5*n-3)/2 })
   lazy val octagonalBig  = naturalBig.map({ n => n*(3*n-2) })
 
+  /**
+   * Compute the gcd of two Ints or two BigInts.
+   */
   def gcd(u : Int, v : Int) : Int = if (v != 0) gcd(v, u % v); else u
   def gcdBig(u : BigInt, v : BigInt) : BigInt = if (v != 0) gcdBig(v, u % v); else u
 
+  /**
+   * Use Newton's  method to  find a  BigDecimal approximation  of the
+   * square root of a given number.
+   */
   def sqrtBig(n : Int, iterations : Int = 100) = {
     val mc = new java.math.MathContext(iterations)
     val N = BigDecimal(n,mc)
@@ -72,6 +85,9 @@ object Euler {
     xn
   }
 
+  /**
+   * Find the continued fraction representation of a BigDecimal.
+   */
   def continuedFraction(x : BigDecimal) = {
     val mc = new java.math.MathContext(x.precision)
     val zero = BigDecimal(0)
@@ -85,7 +101,9 @@ object Euler {
       ((x - fractional1).toInt, fractional1)})
   }
 
-  // https://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Continued_fraction_expansion
+  /**
+   * Find the continued fraction representation of a square root.
+   */
   def cfRoot(S : Int) = {
     val m0 = 0
     val d0 = 1
@@ -94,6 +112,7 @@ object Euler {
     if (a0 * a0 == S) Stream.iterate((a0,0,0))({ _ => (0,0,0) })
     else {
       Stream.iterate((a0, d0, m0))({ case(an,dn,mn) =>
+        // https://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Continued_fraction_expansion
         val mn1 = dn*an - mn
         val dn1 = (S - mn1*mn1)/dn
         val an1 = floor((a0 + mn1)/dn1).toInt
@@ -101,4 +120,20 @@ object Euler {
       })
     }
   }
+
+  /**
+   * A function to incrementally  compute the fractional approximation
+   * of  a continued  fraction.   This  function is  to  be used  with
+   * foldRight, e.g. cf.foldRight((1,0))(cfStep).
+   */
+  def cfStep(an : Int, acc : (BigInt, BigInt)) = {
+    /* a_{n} + \frac{denom}{numer} */
+    val numer = acc._1
+    val denom = acc._2
+    val numerNext = an * numer + denom
+    val denomNext = numer
+    val gcd = gcdBig(numerNext, denomNext)
+    (numerNext / gcd, denomNext / gcd)
+  }
+
 }
