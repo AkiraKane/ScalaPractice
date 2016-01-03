@@ -124,7 +124,7 @@ object Euler {
   /**
    * A function to incrementally  compute the fractional approximation
    * of  a continued  fraction.   This  function is  to  be used  with
-   * foldRight, e.g. cf.foldRight((1,0))(cfStep).
+   * foldRight, e.g. cf.foldRight((one,zero))(cfStep).
    */
   def cfStep(an : Int, acc : (BigInt, BigInt)) = {
     /* a_{n} + \frac{denom}{numer} */
@@ -135,5 +135,25 @@ object Euler {
     val gcd = gcdBig(numerNext, denomNext)
     (numerNext / gcd, denomNext / gcd)
   }
+
+  /**
+   * A     solver    for     Pell's     equation.     According     to
+   * https://en.wikipedia.org/wiki/Pell%27s_equation,  if  (x,y) is  a
+   * solution, then  x/y approximates  sqrt(D).  It  is also  the case
+   * that  the continued  fraction approximation  of sqrt(D)  produces
+   * rational  approximations of  that root,  so this  function simply
+   * successively  generates  possible  solutions from  the  continued
+   * fraction until an actual solution is found.
+   */
+  def PellSolve(D : Int) = {
+    val start = (one,zero)
+    val root = Euler.cfRoot(D).map(_._1)
+
+    Euler.natural.toIterator
+      .map({ i => root.take(i).foldRight(start)(Euler.cfStep) })
+      .filter({ case (x,y) => x*x - D*y*y == 1 })
+      .next
+  }
+
 
 }
