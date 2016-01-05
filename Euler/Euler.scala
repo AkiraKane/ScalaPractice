@@ -44,6 +44,35 @@ object Euler {
   lazy val primes = Stream.iterate(2)(_ + 1).filter(isPrime)
   lazy val primesBig = Stream.iterate(two)(_ + 1).filter(isPrimeBig)
 
+  def power(n : Int, k : Int) = Iterator.fill(k)(n).product
+
+  /**
+   * Get the prime factors an integer.
+   */
+  def primeFactors(n : Int) : List[(Int,Int)] = {
+    val factorItr = primes.toIterator.takeWhile({ p => p * p <= n }).filter({ p => n % p == 0 })
+
+    if (factorItr.hasNext) {
+      val p = factorItr.next
+      var m = n / p
+      var k = 1
+      while (m % p == 0) {
+        m /= p
+        k += 1
+      }
+      (p,k) :: primeFactors(m)
+    }
+    else if (n != 1) List((n,1))
+    else List.empty
+  }
+
+  /**
+   * Computer the value of the  Euler Totient function, $\phi(n)$, for
+   * the     given    n.      Uses     observations    given     here:
+   * https://en.wikipedia.org/wiki/Euler%27s_totient_function .
+   */
+  def phi(n : Int) = primeFactors(n).toIterator.map({ p => 1 - 1.0/p._1 }).product * n
+
   lazy val natural = Stream.iterate(1)(_ + 1)
   lazy val triangular = natural.map({ n => n*(n+1)/2 })
   lazy val square     = natural.map({ n => n*n })
