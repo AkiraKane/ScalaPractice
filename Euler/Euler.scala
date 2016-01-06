@@ -52,7 +52,8 @@ object Euler {
   def primeFactors(n : Int) : List[(Int,Int)] = {
     val factorItr = primes.toIterator.takeWhile({ p => p * p <= n }).filter({ p => n % p == 0 })
 
-    if (factorItr.hasNext) {
+    if (n == 1) List.empty
+    else if (factorItr.hasNext) {
       val p = factorItr.next
       var m = n / p
       var k = 1
@@ -62,8 +63,7 @@ object Euler {
       }
       (p,k) :: primeFactors(m)
     }
-    else if (n != 1) List((n,1))
-    else List.empty
+    else List((n,1))
   }
 
   /**
