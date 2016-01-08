@@ -1,6 +1,6 @@
 package com.daystrom_data_concepts
 
-import scala.math.{ceil,floor,sqrt}
+import scala.math.{ceil,floor,sqrt,pow}
 
 object Euler {
   lazy private val zero = BigInt(0)
@@ -71,7 +71,8 @@ object Euler {
    * the     given    n.      Uses     observations    given     here:
    * https://en.wikipedia.org/wiki/Euler%27s_totient_function .
    */
-  def phi(n : Int) = primeFactors(n).toIterator.map({ p => 1 - 1.0/p._1 }).product * n
+  def phi(n : Int) = primeFactors(n).toIterator
+    .map({ case(p,k) => pow(p,k-1).toInt * (p-1) }).product
 
   lazy val natural = Stream.iterate(1)(_ + 1)
   lazy val triangular = natural.map({ n => n*(n+1)/2 })
