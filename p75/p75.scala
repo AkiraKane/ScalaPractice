@@ -1,6 +1,5 @@
 package com.daystrom_data_concepts
 
-import com.daystrom_data_concepts._
 import math.{floor, sqrt}
 
 object p75 {

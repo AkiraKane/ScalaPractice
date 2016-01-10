@@ -1,7 +1,5 @@
 package com.daystrom_data_concepts
 
-import com.daystrom_data_concepts._
-
 object p65 {
   def sumOfDigits(n : BigInt) = n.toString.map(_ - '0').sum
 

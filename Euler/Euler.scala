@@ -68,7 +68,7 @@ object Euler {
   }
 
   /**
-   * Computer the value of the  Euler Totient function, $\phi(n)$, for
+   * Compute the value  of the Euler Totient  function, $\phi(n)$, for
    * the     given    n.      Uses     observations    given     here:
    * https://en.wikipedia.org/wiki/Euler%27s_totient_function .
    */
@@ -178,10 +178,10 @@ object Euler {
    */
   def PellSolve(D : Int) = {
     val start = (one,zero)
-    val root = Euler.cfRoot(D).map(_._1)
+    val root = cfRoot(D).map(_._1)
 
-    Euler.natural.toIterator
-      .map({ i => root.take(i).foldRight(start)(Euler.cfStep) })
+    natural.toIterator
+      .map({ i => root.take(i).foldRight(start)(cfStep) })
       .filter({ case (x,y) => x*x - D*y*y == 1 })
       .next
   }

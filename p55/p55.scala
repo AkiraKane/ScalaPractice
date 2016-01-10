@@ -1,7 +1,5 @@
 package com.daystrom_data_concepts
 
-import com.daystrom_data_concepts._
-
 object p55 {
   val limit1 = 10000
   val limit2 = 50

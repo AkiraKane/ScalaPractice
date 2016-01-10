@@ -1,7 +1,5 @@
 package com.daystrom_data_concepts
 
-import com.daystrom_data_concepts._
-
 object p51 {
   def change(p : Int) = {
     val pStr = p.toString

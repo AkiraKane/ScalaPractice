@@ -1,7 +1,6 @@
 package com.daystrom_data_concepts
 
 import scala.collection.mutable
-import com.daystrom_data_concepts._
 
 object p77 {
   val limit = 5000

@@ -1,7 +1,6 @@
 package com.daystrom_data_concepts
 
 import scala.collection.mutable
-import com.daystrom_data_concepts._
 
 object p76 {
   val pattern = Stream.continually(List(1,1,-1,-1)).flatten

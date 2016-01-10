@@ -1,7 +1,5 @@
 package com.daystrom_data_concepts
 
-import com.daystrom_data_concepts._
-
 object p68 {
 
   def valueOf(a: Int, b:Int, c:Int) = a+b+c

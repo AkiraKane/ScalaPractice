@@ -1,7 +1,5 @@
 package com.daystrom_data_concepts
 
-import com.daystrom_data_concepts._
-
 /**
  * This is a rather unsatisfying heuristic solution.
  */
