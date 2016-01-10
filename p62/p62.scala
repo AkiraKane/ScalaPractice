@@ -1,7 +1,5 @@
 package com.daystrom_data_concepts
 
-import com.daystrom_data_concepts._
-
 object p62 {
   lazy val cubes = Euler.natural.map({ n =>
     val bigN = BigInt(n)

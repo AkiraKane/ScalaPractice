@@ -1,7 +1,5 @@
 package com.daystrom_data_concepts
 
-import com.daystrom_data_concepts._
-
 object p27 {
   def score(a : Int, b : Int) = {
     var n = 0

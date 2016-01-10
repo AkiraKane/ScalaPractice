@@ -1,7 +1,5 @@
 package com.daystrom_data_concepts
 
-import com.daystrom_data_concepts._
-
 object p60 {
   def compatible(a : Int, b : Int) : Boolean =
     Euler.isPrime((a.toString ++ b.toString).toInt) && Euler.isPrime((b.toString ++ a.toString).toInt)

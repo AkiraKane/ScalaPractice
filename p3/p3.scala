@@ -1,7 +1,5 @@
 package com.daystrom_data_concepts
 
-import com.daystrom_data_concepts._
-
 object p3 {
   val N = BigInt("600851475143")
 

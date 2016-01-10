@@ -1,7 +1,5 @@
 package com.daystrom_data_concepts
 
-import com.daystrom_data_concepts._
-
 object p61 {
   val lower = 1000
   val upper = 10000

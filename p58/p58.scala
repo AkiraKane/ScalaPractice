@@ -1,7 +1,5 @@
 package com.daystrom_data_concepts
 
-import com.daystrom_data_concepts._
-
 object p58 {
   val oddNumbers = Stream.iterate(1)(_ + 2)
 

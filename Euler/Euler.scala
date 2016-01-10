@@ -1,13 +1,14 @@
 package com.daystrom_data_concepts
 
-import scala.math.{ceil,floor,sqrt,pow}
+import scala.collection.mutable
+import scala.math.{ceil,floor,sqrt,pow,max}
 
 object Euler {
   lazy private val zero = BigInt(0)
   lazy private val one  = BigInt(1)
   lazy private val two  = BigInt(2)
 
-  // http://derekwyatt.org/2011/07/29/understanding-scala-streams-through-fibonacci/
+  /* http://derekwyatt.org/2011/07/29/understanding-scala-streams-through-fibonacci/ */
   lazy val fibs : Stream[Int] = 0 #:: 1 #:: fibs.zip(fibs.tail).map {n => n._1 + n._2}
   lazy val fibsBig : Stream[BigInt] = zero #:: one #:: fibsBig.zip(fibsBig.tail).map {n => n._1 + n._2}
 
@@ -67,7 +68,7 @@ object Euler {
   }
 
   /**
-   * Computer the value of the  Euler Totient function, $\phi(n)$, for
+   * Compute the value  of the Euler Totient  function, $\phi(n)$, for
    * the     given    n.      Uses     observations    given     here:
    * https://en.wikipedia.org/wiki/Euler%27s_totient_function .
    */
@@ -177,13 +178,34 @@ object Euler {
    */
   def PellSolve(D : Int) = {
     val start = (one,zero)
-    val root = Euler.cfRoot(D).map(_._1)
+    val root = cfRoot(D).map(_._1)
 
-    Euler.natural.toIterator
-      .map({ i => root.take(i).foldRight(start)(Euler.cfStep) })
+    natural.toIterator
+      .map({ i => root.take(i).foldRight(start)(cfStep) })
       .filter({ case (x,y) => x*x - D*y*y == 1 })
       .next
   }
 
+  /**
+   * Find the longest common subsequence of two sequences.  This uses
+   * the algorithm from
+   * https://en.wikipedia.org/wiki/Longest_common_subsequence_problem#Computing_the_length_of_the_LCS
+   */
+  def LCSLength[T](X: Seq[T], Y: Seq[T]) = {
+    val m = X.length
+    val n = Y.length
+    val C = mutable.Map.empty[(Int,Int),Int]
 
+    var i = 0
+    while (i < m) {
+      var j = 0
+      while (j < n) {
+        if (X(i) == Y(j)) C.put((i,j), C.getOrElse((i-1,j-1),0) + 1)
+        else C.put((i,j), max(C.getOrElse((i,j-1),0), C.getOrElse((i-1,j),0)))
+        j += 1
+      }
+      i += 1
+    }
+    C.getOrElse((m-1,n-1),0)
+  }
 }

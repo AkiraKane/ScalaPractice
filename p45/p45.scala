@@ -1,7 +1,5 @@
 package com.daystrom_data_concepts
 
-import com.daystrom_data_concepts._
-
 object p45 {
 
   def isHexagonal(n : BigInt) = (Euler.hexagonalBig.takeWhile(_ <= n).last == n)

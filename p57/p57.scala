@@ -1,7 +1,5 @@
 package com.daystrom_data_concepts
 
-import com.daystrom_data_concepts._
-
 object p57 {
   val rootTwo = Iterator
     .iterate((BigInt(2),BigInt(1)))({ case (n,d) => (2*n + d, n) })

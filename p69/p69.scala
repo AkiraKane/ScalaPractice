@@ -1,6 +1,5 @@
 package com.daystrom_data_concepts
 
-import com.daystrom_data_concepts._
 object p69 {
   val limit = 1000000
 

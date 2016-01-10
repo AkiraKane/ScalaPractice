@@ -1,7 +1,5 @@
 package com.daystrom_data_concepts
 
-import com.daystrom_data_concepts._
-
 object p33 {
 
   def curious(numer1 : Int, denom1 : Int) = {

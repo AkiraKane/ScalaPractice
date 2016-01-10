@@ -1,7 +1,5 @@
 package com.daystrom_data_concepts
 
-import com.daystrom_data_concepts._
-
 object p71 {
   val limit = 1000000
   val fraction = 3.0 / 7
