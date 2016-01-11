@@ -289,6 +289,7 @@ lazy val p43 = (project in file("p43")).
   )
 
 lazy val p44 = (project in file("p44")).
+  dependsOn(Euler).
   settings(commonSettings: _*).
   settings(
     name := "p44"
@@ -309,6 +310,7 @@ lazy val p46 = (project in file("p46")).
   )
 
 lazy val p47 = (project in file("p47")).
+  dependsOn(Euler).
   settings(commonSettings: _*).
   settings(
     name := "p47"
@@ -328,6 +330,7 @@ lazy val p49 = (project in file("p49")).
   )
 
 lazy val p50 = (project in file("p50")).
+  dependsOn(Euler).
   settings(commonSettings: _*).
   settings(
     name := "p50"
