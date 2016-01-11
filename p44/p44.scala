@@ -1,8 +1,7 @@
 package com.daystrom_data_concepts
 
 object p44 {
-
-  val pentagonal = Stream.from(1).map({ n => (3*n*n - n) / 2 })
+  val pentagonal = Euler.pentagonal
 
   def isPentagonal(n : Int) = (pentagonal.takeWhile(_ <= n).last == n)
 
