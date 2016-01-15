@@ -16,6 +16,12 @@ lazy val Euler = (project in file("Euler")).
     name := "Euler"
   )
 
+lazy val Dijkstra = (project in file("Dijkstra")).
+  settings(commonSettings: _*).
+  settings(
+    name := "Dijkstra"
+  )
+
 lazy val p1 = (project in file("p1")).
   settings(commonSettings: _*).
   settings(
@@ -539,8 +545,15 @@ lazy val p81 = (project in file("p81")).
   )
 
 lazy val p82 = (project in file("p82")).
-  dependsOn(Euler).
   settings(commonSettings: _*).
   settings(
     name := "p82"
+  )
+
+lazy val p83 = (project in file("p83")).
+  dependsOn(Euler).
+  dependsOn(Dijkstra).
+  settings(commonSettings: _*).
+  settings(
+    name := "p83"
   )

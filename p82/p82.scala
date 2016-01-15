@@ -5,8 +5,8 @@ import scala.io.Source
 import scala.collection.mutable
 
 object p82 {
-  val limit = 80
-  val dim = limit - 1
+  val dim = 80
+  val limit = dim - 1
 
   val matrix = Source.fromFile("p82/p082_matrix.txt")
     .mkString.split("\n").toList
@@ -28,8 +28,8 @@ object p82 {
     state1: mutable.Map[(Int,Int), Int] = mutable.Map.empty[(Int,Int), Int],
     state2: mutable.Map[Int, Seq[Int]] = mutable.Map.empty[Int, Seq[Int]]
   ): Int = {
-    if (i > dim || j > dim || i < 0 || j < 0) Integer.MAX_VALUE
-    else if (j == dim) matrix(i)(j)
+    if (i > limit || j > limit || i < 0 || j < 0) Integer.MAX_VALUE
+    else if (j == limit) matrix(i)(j)
     else {
       state1.getOrElse((i,j), {
         val cs = columnSum(j, state2)
