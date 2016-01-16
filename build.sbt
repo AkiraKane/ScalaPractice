@@ -551,7 +551,6 @@ lazy val p82 = (project in file("p82")).
   )
 
 lazy val p83 = (project in file("p83")).
-  dependsOn(Euler).
   dependsOn(Dijkstra).
   settings(commonSettings: _*).
   settings(
