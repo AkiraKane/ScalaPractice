@@ -7,7 +7,7 @@ object p42 {
 
   def isTriangle(n : Int) = Euler.triangular.takeWhile(_ <= n).exists(_ == n)
 
-  val solution = Source.fromFile("p42/p042_words.txt")
+  val solution = Source.fromFile("40/p42/p042_words.txt")
     .mkString.split(",").toList
     .map({ str => str.stripPrefix("\"").stripSuffix("\"") })
     .map(_.toString)

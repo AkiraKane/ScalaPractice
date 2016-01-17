@@ -3,7 +3,7 @@ package com.daystrom_data_concepts
 object p59 {
   import scala.io.Source
 
-  val data = Source.fromFile("p59/p059_cipher.txt")
+  val data = Source.fromFile("50/p59/p059_cipher.txt")
     .mkString.split(",")
     .map(_.trim.toInt)
 

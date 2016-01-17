@@ -5,7 +5,7 @@ import scala.io.Source
 import scala.collection.mutable
 
 object p79 {
-  val logs = Source.fromFile("p79/p079_keylog.txt")
+  val logs = Source.fromFile("70/p79/p079_keylog.txt")
     .mkString.split("\n").toList
 
   def predicate(str: String) : Boolean = {

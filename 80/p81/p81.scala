@@ -7,7 +7,7 @@ import scala.collection.mutable
 object p81 {
   val dim = 80 - 1
 
-  val matrix = Source.fromFile("p81/p081_matrix.txt")
+  val matrix = Source.fromFile("80/p81/p081_matrix.txt")
     .mkString.split("\n").toList
     .map(_.split(",").map(_.toInt).toList)
 
