@@ -73,7 +73,7 @@ object p54 {
     score(digest(one)) > score(digest(two))
   }
 
-  lazy val solution = Source.fromFile("p54/p054_poker.txt").getLines
+  lazy val solution = Source.fromFile("50/p54/p054_poker.txt").getLines
     .filter(playerOneWins(_))
     .length
 

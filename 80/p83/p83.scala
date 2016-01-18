@@ -8,7 +8,7 @@ object p83 {
   val dim = 80
   val limit = dim - 1
 
-  val data = Source.fromFile("p83/p083_matrix.txt")
+  val data = Source.fromFile("80/p83/p083_matrix.txt")
     .mkString.split("\n").toList
     .map(_.split(",").map(_.toInt).toList)
 

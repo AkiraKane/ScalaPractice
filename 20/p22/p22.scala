@@ -5,7 +5,7 @@ object p22 {
 
   def score(name : String) : Int = name.map(_ - 'A' + 1).sum
 
-  val solution = Source.fromFile("p22/p022_names.txt")
+  val solution = Source.fromFile("20/p22/p022_names.txt")
     .mkString.split(",").toList
     .map({ str => str.stripPrefix("\"").stripSuffix("\"") })
     .map(_.toString)
