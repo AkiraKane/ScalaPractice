@@ -3,49 +3,29 @@ package com.daystrom_data_concepts
 import scala.collection.mutable
 
 object p88 {
-  val limit = 1200
+  val limit = 12000
 
-  def elaborate(fs: List[(Int, Int)]) = fs.flatMap({ case(factor,mult) => List.fill(mult)(factor) })
+  val ns = mutable.Map.empty[Int, Int]
 
-  def factorize(n: Int) = elaborate(Euler.primeFactors(n))
+  // Iterate over all constructions of k
+  def build(product: Int, sum: Int, terms: Int, start: Int): Unit = {
+    val k = (product - (sum - 1)) + terms
 
-  val cache = mutable.Map.empty[List[Int], List[List[Int]]]
-
-  def enumerate(fs: List[Int]): List[List[Int]] = {
-    val length = fs.length
-
-    if (length < 1) List(List.empty[Int])
-    else cache.getOrElse(fs, {
-      val result =
-        (1 to length).map({ i =>
-          val prod = fs.take(i).product
-          val rest = fs.drop(i)
-          rest.permutations
-            .flatMap({ lst => enumerate(lst.sorted) })
-            .map(prod :: _)
-        }).foldLeft(List.empty[List[Int]])(_ ++ _)
-
-      cache.put(fs, result)
-      result
-    })
+    if (k <= limit) {
+      ns.get(k) match {
+        case None => ns.put(k, product)
+        case Some(other) => if (product < other) ns.put(k, product)
+      }
+      (start to (2*limit / product)).foreach({ factor =>
+        build(product * factor, sum + factor, terms + 1, factor)
+      })
+    }
   }
 
-  // Compute the k-set for n
-  def ks(n: Int): Set[Int] = {
-    val factors = factorize(n).sorted
-    enumerate(factors.sorted)
-      .map({ lst => n - lst.sum + lst.length })
-      .toSet
+  val solution = {
+    build(1, 0, 1, 2)
+    ns.values.filter(_ != 1).toSet.sum
   }
-
-  // k-sets for each natural number
-  lazy val kss = Euler.natural.map({ i => (i,ks(i)) })
-
-  // For each k, give the smallest natural number whose k-set contains it
-  lazy val indices = Euler.natural.drop(1).takeWhile(_ <= limit)
-    .map({ i => kss.filter(_._2.contains(i)).head._1 })
-
-  val solution = indices.distinct.sum
 
   def main(args: Array[String]) = println(solution)
 }
