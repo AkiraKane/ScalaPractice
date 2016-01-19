@@ -588,3 +588,10 @@ lazy val p88 = (project in file("80/p88")).
   settings(
     name := "p88"
   )
+
+lazy val p90 = (project in file("90/p90")).
+  dependsOn(Euler).
+  settings(commonSettings: _*).
+  settings(
+    name := "p90"
+  )
