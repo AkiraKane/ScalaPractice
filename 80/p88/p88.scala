@@ -2,6 +2,7 @@ package com.daystrom_data_concepts
 
 import scala.collection.mutable
 
+// http://blog.dreamshire.com/project-euler-88-solution/
 object p88 {
   val limit = 12000
 
