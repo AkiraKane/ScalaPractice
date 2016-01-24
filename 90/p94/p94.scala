@@ -1,43 +1,36 @@
 package com.daystrom_data_concepts
 
-import math.{floor, sqrt}
+import math.floor
 
 object p94 {
   val limit = 1000000000
 
-  lazy val xs = Euler.natural.takeWhile(_ <= limit)
+  def isInt(x: Double) = x == floor(x)
+
+  val pairs = Euler.PellSolutions(3)
 
   /*
-   * Use Pythagorean  triples to generate  near-equilateral triangles.
-   * Such  a  triangle  can  be  thought of  as  two  right  triangles
-   * back-to-back  so  that  the  hypotenuses   of  the  two  are  the
-   * equal-length sides of the one.
-   *
-   * From https://en.wikipedia.org/wiki/Pythagorean_triple#Generating_a_triple
-   * we have
-   *
-   *    a := m^2 - n^2
-   *    b := 2mn
-   *    c := m^2 + n^2
-   *
-   * so that 2a = c + 1 which implies m^2 - 1 == 3n^2
-   * or else 2b = c + 1 which imples m^2 + n^2 - 4mn + 1 == 0
+   * Express  solution  in  terms  of Pell's  Equation.   There  is  a
+   * triangle with  equal sides  of length  $a$ and  a third  side $b$
+   * where $\abs{a - b} = 1$ so that $(\frac{3a ± 1}{2})^2 - 3y^2 = 1.
    */
-  val ms = Stream.iterate(1)(_ + 1).takeWhile(_ < 15812)
+  val solution = pairs
+    .drop(1) // Drop infeasible primitive solution
+    .takeWhile(_._1 < 2 * limit).toList
+    .map({ case (x,y) =>
+      val a1 = (2 * x.toInt + 1)/3.0
+      val b1 = a1 + 1
+      val area1 = (b1 * y.toInt)/2.0
+      val a2 = (2 * x.toInt - 1)/3.0
+      val b2 = a2 - 1
+      val area2 = (b2 * y.toInt)/2.0
 
-  /* b and c */
-  val bc = ms.map({ m => (m, sqrt(5*m*m - 1) - 2*m) })
-    .filter({ case (m,n) => (m > 0) && (n > 0) })
-    .map({ case (m,n) => ((m*m + n*n), 4*m*n) })
-
-  /* a and c */
-  val ac = ms.map({ m => (m, sqrt((m*m - 1) / 3)) })
-    .filter({ case (m,n) => (m > 0) && (n > 0) })
-    .map({ case (m,n) => ((m*m + n*n), 2*(m*m - n*n)) })
-
-  val solution = (ac ++ bc)
-    .filter({ case (one,two) => (one % 1.0 == 0.0) && (two % 1.0 == 0.0) && (one + 1 == two) })
-    .map({ case(one, two) => (one + one + two).toInt })
+      if (isInt(a1) && isInt(b1) && isInt(area1)) (a1.toInt, b1.toInt)
+      else if (isInt(a2) && isInt(b2) && isInt(area2)) (a2.toInt, b2.toInt)
+      else (0, 0)
+    })
+    .map({ case (a,b) => 2*a + b })
+    .filter(_ < limit)
     .sum
 
   def main(args: Array[String]) = println(solution)
