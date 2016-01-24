@@ -176,15 +176,16 @@ object Euler {
    * successively  generates  possible  solutions from  the  continued
    * fraction until an actual solution is found.
    */
-  def PellSolve(D : Int) = {
+  def PellSolutions(D: Int) = {
     val start = (one,zero)
     val root = cfRoot(D).map(_._1)
 
     natural.toIterator
       .map({ i => root.take(i).foldRight(start)(cfStep) })
       .filter({ case (x,y) => x*x - D*y*y == 1 })
-      .next
   }
+
+  def PellSolve(D: Int) = PellSolutions(D).next
 
   /**
    * Find the longest common subsequence of two sequences.  This uses
