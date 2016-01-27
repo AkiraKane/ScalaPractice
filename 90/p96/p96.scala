@@ -5,101 +5,67 @@ import scala.io.Source
 
 
 object p99 {
+  type Puzzle = Map[(Int, Int), Int]
+
   def ingest(puzzle: Seq[String]) = {
-    puzzle
+    val state = puzzle
       .drop(1)
-      .flatMap({ row =>
-        row.map({ n =>
-          (n - '0') match {
-            case 0 => List.range(1,10).toSet
-            case n: Int => Set(n)
-          }
-        })
-      })
-    .toArray
+      .flatMap({ row => row.map({ n => n - '0' }) })
+
+    List.range(0,82).zip(state)
+      .map({ x => ((x._1 % 9, x._1 / 9), x._2) })
+      .toMap
   }
 
   /* --------------------------------- */
 
-  def get(array: Array[Set[Int]], x: Int, y: Int): Set[Int] = array(9*y + x)
+  def colGet(puzzle: Puzzle, x: Int) =
+    puzzle
+      .filter(_._1._1 == x)
+      .map(_._2)
+      .filter(_ != 0)
+      .toSet
 
-  def put(array: Array[Set[Int]], x: Int, y: Int, set: Set[Int]): Unit = (array(9*y + x) = set)
+  def rowGet(puzzle: Puzzle, y: Int) =
+    puzzle
+      .filter(_._1._2 == y)
+      .map(_._2)
+      .filter(_ != 0)
+      .toSet
 
-  /* --------------------------------- */
+  def boxGet(puzzle: Puzzle, x0: Int, y0: Int) =
+    puzzle
+      .filter({ kv =>
+        val ((x1, y1), _) = kv
+        (((x0 / 3) == (x1 / 3)) && ((y0 / 3) == (y1 / 3))) })
+      .map(_._2)
+      .filter(_ != 0)
+      .toSet
 
-  def known(list: Seq[Set[Int]]) = {
-    // list.flatMap({ set => set.toList.map({ n => (n, 1.0/set.size) }) })
-    //   .groupBy(_._1)
-    //   .mapValues({ list => list.map(_._2).sum })
-    //   .filter(_._2 >= 1)
-    //   .map(_._1)
-    //   .toSet
-    list.filter(_.size == 1).flatten.toSet
-  }
-
-  def rowKnown(array: Array[Set[Int]], x: Int, y: Int) =
-    known(List.range(0,9).filter(_ != x).map({ i => get(array, i, y) }))
-
-  def colKnown(array: Array[Set[Int]], x: Int, y: Int) =
-    known(List.range(0,9).filter(_ != y).map({ i => get(array, x, i) }))
-
-  def boxKnown(array: Array[Set[Int]], x: Int, y: Int) = {
-    val xs = (x/3) match {
-      case 0 => (0 until 3)
-      case 1 => (3 until 6)
-      case 2 => (6 until 9)
-    }
-    val ys = (y/3) match {
-      case 0 => (0 until 3)
-      case 1 => (3 until 6)
-      case 2 => (6 until 9)
-    }
-
-    known(for (col <- xs.filter(_ != x); row <- ys.filter(_ != y)) yield get(array, col, row))
-  }
-
-  def allKnown(array: Array[Set[Int]], x: Int, y: Int) = {
-    val row = rowKnown(array, x, y)
-    val col = colKnown(array, x, y)
-    val box = boxKnown(array, x, y)
-
-    (row union col union box)
+  def possible(puzzle: Puzzle, x: Int, y: Int) = {
+    val colSet = colGet(puzzle, x)
+    val rowSet = rowGet(puzzle, y)
+    val boxSet = boxGet(puzzle, x, y)
+    Set(1,2,3,4,5,6,7,8,9) &~ (colSet union rowSet union boxSet)
   }
 
   /* --------------------------------- */
 
-  def display(array: Array[Set[Int]]) = {
-    var y = 0
-    while (y < 9) {
-      var x = 0
-      while (x < 9) {
-        val before = get(array, x, y)
-        if (before.size == 1) print(before.toList.head); else print(0)
-        x += 1
-      }
-      println
-      y += 1
+  def solve(puzzle: Puzzle): Option[Puzzle] = {
+    val spots = puzzle.filter(_._2 == 0).map(_._1)
+
+    if (spots.isEmpty) {
+      Some(puzzle)
+    }
+    else {
+      val xy = spots.head
+      val (x,y) = xy
+      val solution = possible(puzzle, x, y).toIterator
+        .map({ n => solve(puzzle + (xy -> n)) })
+        .filter(_ != None)
+      if (solution.nonEmpty) solution.next; else None
     }
   }
-
-  def pass(array: Array[Set[Int]]) = {
-    var x = 0
-    while (x < 9) {
-      var y = 0
-      while (y < 9) {
-        val before = get(array, x, y)
-        val known = allKnown(array, x, y)
-        val after = before &~ known
-        put(array, x, y, after)
-        y += 1
-      }
-      x += 1
-    }
-  }
-
-  def solve(array: Array[Set[Int]]) =
-    while (array.toList.filter(_.size == 1).length < 81)
-      pass(array)
 
   /* --------------------------------- */
 
@@ -107,8 +73,16 @@ object p99 {
     .mkString.split("\n").toList
     .grouped(10)
     .map(ingest)
+    .map(solve)
 
-  val solution = 33
+  val solution = data.map({
+    case Some(solution) =>
+      val hundreds = 100 * solution.getOrElse((0,0),-1)
+      val tens = 10*solution.getOrElse((1,0),-1)
+      val ones = solution.getOrElse((2,0),-1)
+      hundreds + tens + ones
+    case None => throw new Exception })
+    .sum
 
   def main(args: Array[String]) = println(solution)
 }
