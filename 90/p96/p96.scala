@@ -4,7 +4,7 @@ import math.log
 import scala.io.Source
 
 
-object p99 {
+object p96 {
   type Puzzle = Map[(Int, Int), Int]
 
   def ingest(puzzle: Seq[String]) = {
