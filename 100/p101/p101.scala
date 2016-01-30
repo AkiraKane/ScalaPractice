@@ -10,6 +10,7 @@ object p101 {
   val ys = xs.map({ n => 1 - n + power(n,2) - power(n,3) + power(n,4) - power(n,5) + power(n,6) - power(n,7) + power(n,8) - power(n,9) + power(n,10) })
   // val ys = xs.map({ n => power(n,3) })
 
+  /* https://en.wikipedia.org/wiki/Lagrange_polynomial */
   def bigL(x: Double, k: Int) =
     (0 to k).map({ j => ys(j)*ell(x,j,k) }).sum
 
