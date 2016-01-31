@@ -4,7 +4,10 @@ package com.daystrom_data_concepts
 object p103 {
   val limit = 4
 
-  val start = List(20,31,38,39,40,42,45) // Use "rule" on n == 6 solution.  The fact that this is the actual solution is amusing.
+  /* Use  "rule" on  true n  == 6  solution that  was provided  in the
+   * problem description.  The  fact that this is  the actual solution
+   * is amusing. */
+  val start = List(20,31,38,39,40,42,45)
 
   def subPred1(ns: List[Int]) = {
     (ns(0) + ns(1) > ns(6)) &&
@@ -31,7 +34,7 @@ object p103 {
       b <- (-limit to limit);
       c <- (-limit to limit);
       d <- (-limit to limit);
-      e <- (-limit to limit); // The gap between the first two and the last one allows limit
+      e <- (-limit to limit);
       f <- (-limit to limit);
       g <- (-limit to limit)
       if (((a+b+c+d) - (e+f+g)) >= 0); // First four must be larger than last three
