@@ -1,7 +1,5 @@
 package com.daystrom_data_concepts
 
-import scala.io.Source
-
 
 object p104 {
   val ns = (1 to 9).map(_ + '0').toSet
