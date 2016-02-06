@@ -67,6 +67,23 @@ object Euler {
     else List((n,1))
   }
 
+  def primeFactorsBig(n : BigInt) : List[(BigInt,Int)] = {
+    val factorItr = primesBig.toIterator.takeWhile({ p => p * p <= n }).filter({ p => n % p == 0 })
+
+    if (n == 1) List.empty
+    else if (factorItr.hasNext) {
+      val p = factorItr.next
+      var m = n / p
+      var k = 1
+      while (m % p == 0) {
+        m /= p
+        k += 1
+      }
+      (p,k) :: primeFactorsBig(m)
+    }
+    else List((n,1))
+  }
+
   /**
    * Compute the value  of the Euler Totient  function, $\phi(n)$, for
    * the     given    n.      Uses     observations    given     here:
