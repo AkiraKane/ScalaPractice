@@ -732,3 +732,10 @@ lazy val p110 = (project in file("100/p110")).
   settings(
     name := "p110"
   )
+
+lazy val p111 = (project in file("100/p111")).
+  dependsOn(Euler).
+  settings(commonSettings: _*).
+  settings(
+    name := "p111"
+  )
