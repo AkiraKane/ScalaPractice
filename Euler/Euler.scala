@@ -26,16 +26,19 @@ object Euler {
   }
 
   /**
-   * Test the primality of a BigInt.
-   */
+    * Test the primality of a BigInt.
+    */
   def isPrimeBig(n : BigInt) = {
-    if (n == 1) false
-    else if (n == 2) true
-    else {
-      var i = two
-      while ((i < n) && (i < n*n)) { if (n % i == 0) i = n + 33; else i += 1 }
-      if (i == n + 33) false ; else true
+    if (n.isProbablePrime(100)) {
+      if (n == 1) false
+      else if (n == 2) true
+      else {
+        var i = two
+        while ((i < n) && (i < n*n)) { if (n % i == 0) i = n + 33; else i += 1 }
+        if (i == n + 33) false ; else true
+      }
     }
+    else false
   }
 
   def isPalindrome(str : String) : Boolean = (str == str.reverse)
