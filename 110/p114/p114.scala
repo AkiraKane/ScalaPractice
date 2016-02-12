@@ -4,12 +4,11 @@ import scala.collection.mutable
 
 
 object p114 {
-  val limit = 50
-
   def combos(
     lastBlack: Boolean = true,
     currentIndex: Int = -1,
-    lastIndex: Int = (limit - 1),
+    lastIndex: Int,
+    minRedLength: Int,
     cache: mutable.Map[(Boolean, Int), BigInt] = mutable.Map.empty[(Boolean, Int), BigInt]
   ): BigInt = {
     if (currentIndex > lastIndex) BigInt(0)
@@ -20,9 +19,9 @@ object p114 {
 
       if (cached.nonEmpty) cached.get
       else {
-        val black = combos(lastBlack = true, currentIndex + 1, lastIndex, cache)
-        lazy val red = (3 to (lastIndex - currentIndex))
-          .map({ length => combos(lastBlack = false, currentIndex + length, lastIndex, cache) })
+        val black = combos(lastBlack = true, currentIndex + 1, lastIndex, minRedLength, cache)
+        lazy val red = (minRedLength to (lastIndex - currentIndex))
+          .map({ length => combos(lastBlack = false, currentIndex + length, lastIndex, minRedLength, cache) })
           .sum
         val result = black + (if (lastBlack) red; else 0)
 
@@ -32,7 +31,8 @@ object p114 {
     }
   }
 
-  val solution = combos()
-
-  def main(args: Array[String]) = println(solution)
+  def main(args: Array[String]) = {
+    println(s"F(3,50)=${combos(lastIndex=49, minRedLength=3)}")
+    println(s"F(50,167)=${combos(lastIndex=166, minRedLength=50)} F(50,168)=${combos(lastIndex=167, minRedLength=50)}")
+  }
 }
