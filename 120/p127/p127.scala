@@ -1,70 +1,37 @@
 package com.daystrom_data_concepts
 
 import scala.collection.mutable
-import Euler.{gcd, primeFactors}
+import Euler.gcd
 
 
 object p127 {
-  val limit = 2000
+  val limit = 120000
 
-  val factorsCache = mutable.Map.empty[Int, Set[Int]]
-  val radCache = mutable.Map.empty[Int, Int]
+  val primes = 2 #:: Stream.iterate(BigInt(3))(_ + 1)
+    .filter({ n => n.isProbablePrime(1000) })
+    .takeWhile(_ <= limit)
 
-  def factors(
-    n: Int,
-    cache: mutable.Map[Int, Set[Int]] = factorsCache
-  ) = {
-    val cached = cache.get(n)
+  val rads = Stream.iterate(1)(_ + 1)
+    .takeWhile(_ <= limit)
+    .map({ n => (n, primes.filter({ p => n % p == 0 }).product) })
+    .toMap
 
-    if (cached.nonEmpty) cached.get
-    else {
-      val result = primeFactors(n).map(_._1).toSet
-      cache.put(n, result)
-      result
-    }
-  }
+  def rad(n: Int) = rads.get(n).get
 
-  def rad(
-    a: Int, b: Int, c: Int,
-    cache: mutable.Map[Int, Int] = radCache
-  ) = {
-    val abc = a * b * c
-    val cached = cache.get(abc)
-
-    if (cached.nonEmpty) cached.get
-    else {
-      val result = List(a, b, c)
-        .map({ n => factors(n) })
-        .foldLeft(Set.empty[Int])({ (left, right) => left union right })
-        .product
-      cache.put(abc, result)
-      result
-    }
-  }
-
-  val candidates = {
-    var retval = 0
-
+  val solution = {
+    var tally = 0
     var a = 1
     while (a < limit) {
       var b = a + 1
       while (a + b < limit) {
         val c = a + b
-        val as = factors(a)
-        val bs = factors(b)
-        val cs = factors(c)
-
-        if ((as & bs).isEmpty && (as & cs).isEmpty && (bs & cs).isEmpty && rad(a, b, c) < c)
-          retval += c
+        if (gcd(a,b) == 1 && rad(a)*rad(b)*rad(c) < c) tally += c
         b += 1
       }
       a += 1
     }
-
-    retval
+    tally
   }
-
-  val solution = candidates
 
   def main(args: Array[String]) = println(solution)
 }
