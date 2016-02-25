@@ -7,7 +7,8 @@ val scalaz = Seq(
 lazy val commonSettings = Seq(
   organization := "com.daystrom-data-concepts",
   version := "33",
-  scalaVersion := "2.11.7"
+  scalaVersion := "2.11.7",
+  shellPrompt := { s => Project.extract(s).currentProject.id.drop(1) + "> " }
 )
 
 lazy val Euler = (project in file("Euler")).
@@ -582,3 +583,7 @@ lazy val p127 = (project in file("120/p127")).
 lazy val p128 = (project in file("120/p128")).
   settings(commonSettings: _*).
   settings(name := "p128")
+
+lazy val p129 = (project in file("120/p129")).
+  settings(commonSettings: _*).
+  settings(name := "p129")
