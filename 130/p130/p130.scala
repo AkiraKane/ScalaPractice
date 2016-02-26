@@ -1,9 +1,7 @@
 package com.daystrom_data_concepts
 
 
-object p129 {
-  val limit = 1000000
-
+object p130 {
   def a(n: Int) = {
     var i: Int = 1
     var rem: Int = 1
@@ -15,12 +13,12 @@ object p129 {
     i
   }
 
-
-  val solution = Iterator.iterate(limit + 1)(_ + 2)
+  val solution = Iterator.iterate(3)(_ + 2)
     .filter(_ % 5 != 0)
-    .map({ n => (n, a(n)) })
-    .filter(_._2 > limit)
-    .next
+    .filter({ n => !(BigInt(n).isProbablePrime(1000)) })
+    .filter({ n => (n - 1) % a(n) == 0 })
+    .take(25)
+    .sum
 
   def main(args: Array[String]) = println(solution)
 }
