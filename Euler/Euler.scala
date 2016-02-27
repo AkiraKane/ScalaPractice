@@ -4,9 +4,10 @@ import scala.collection.mutable
 import scala.math.{ceil,floor,sqrt,pow,max}
 
 object Euler {
-  lazy private val zero = BigInt(0)
-  lazy private val one  = BigInt(1)
-  lazy private val two  = BigInt(2)
+  lazy private val zero  = BigInt(0)
+  lazy private val one   = BigInt(1)
+  lazy private val two   = BigInt(2)
+  lazy private val three = BigInt(3)
 
   /* http://derekwyatt.org/2011/07/29/understanding-scala-streams-through-fibonacci/ */
   lazy val fibs : Stream[Int] = 0 #:: 1 #:: fibs.zip(fibs.tail).map {n => n._1 + n._2}
@@ -15,38 +16,19 @@ object Euler {
   /**
    * Test the primality of an Int.
    */
-  def isPrime(n : Int) = {
-    if (n == 1) false
-    else if (n == 2) true
-    else {
-      var i = math.ceil(math.sqrt(n))
-      while (i > 1) { if (n % i == 0) i = 0; else i -= 1 }
-      if (i == 1) true; else false
-    }
-  }
+  def isPrime(n: Int) = BigInt(n).isProbablePrime(1000)
 
   /**
     * Test the primality of a BigInt.
     */
-  def isPrimeBig(n : BigInt) = {
-    if (n.isProbablePrime(100)) {
-      if (n == 1) false
-      else if (n == 2) true
-      else {
-        var i = two
-        while ((i < n) && (i < n*n)) { if (n % i == 0) i = n + 33; else i += 1 }
-        if (i == n + 33) false ; else true
-      }
-    }
-    else false
-  }
+  def isPrimeBig(n: BigInt) = n.isProbablePrime(1000)
 
   def isPalindrome(str : String) : Boolean = (str == str.reverse)
   def isPalindrome(n : Int) : Boolean = isPalindrome(n.toString)
   def isPalindrome(n : BigInt) : Boolean = isPalindrome(n.toString)
 
-  lazy val primes = Stream.iterate(2)(_ + 1).filter(isPrime)
-  lazy val primesBig = Stream.iterate(two)(_ + 1).filter(isPrimeBig)
+  lazy val primes = 2 #:: Stream.iterate(3)(_ + 2).filter(isPrime)
+  lazy val primesBig = two #:: Stream.iterate(three)(_ + 2).filter(isPrimeBig)
 
   def power(n : Int, k : Int) = Iterator.fill(k)(n).product
 
