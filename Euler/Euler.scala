@@ -99,6 +99,36 @@ object Euler {
   def gcd(u : Int, v : Int) : Int = if (v != 0) gcd(v, u % v); else u
   def gcdBig(u : BigInt, v : BigInt) : BigInt = if (v != 0) gcdBig(v, u % v); else u
 
+  /*
+   * https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm
+   *
+   * function extended_gcd(a, b)
+   *  s := 0;    old_s := 1
+   *  t := 1;    old_t := 0
+   *  r := b;    old_r := a
+   *  while r ≠ 0
+   *    quotient := old_r div r
+   *    (old_r, r) := (r, old_r - quotient * r)
+   *    (old_s, s) := (s, old_s - quotient * s)
+   *    (old_t, t) := (t, old_t - quotient * t)
+   * output "Bézout coefficients:", (old_s, old_t)
+   * output "greatest common divisor:", old_r
+   * output "quotients by the gcd:", (t, s)
+   */
+  def extendedEuclidean(a: Int, b: Int) = {
+    var s = 0; var old_s = 1
+    var t = 1; var old_t = 0
+    var r = b; var old_r = a
+
+    while (r != 0) {
+      val quotient = old_r / r
+      val new_r = old_r - quotient * r; old_r = r; r = new_r
+      val new_s = old_s - quotient * s; old_s = s; s = new_s
+      val new_t = old_t - quotient * t; old_t = t; t = new_t
+    }
+    (old_s, old_t, old_r, t, s)
+  }
+
   /**
    * Use Newton's  method to  find a  BigDecimal approximation  of the
    * square root of a given number.
