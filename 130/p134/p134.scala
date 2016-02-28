@@ -1,47 +1,35 @@
 package com.daystrom_data_concepts
 
 import Euler.{ extendedEuclidean, primes }
-import math.max
 
 
 object p134 {
-  val limit = 100
+  val limit = 1000000
 
-  def makePositive(n: BigInt, p: Int) = {
-    var retval = n
-    while (retval < 0) retval += p
-    retval % p
+  def power(b: Int, k: Int) = {
+    var result = 1; var i = 0
+    while (i < k) {result *= b; i += 1}
+    result
   }
 
   /*
-   * Solve the equation
+   * Solve
    *
-   * ax - p_{2}y = -c
+   * p_{2}x + (-10^{d})y = p_{1}
    *
-   * where c  is equal to ("1"+p1.toString  mod p2) and a  is how much
-   * the  modulus of  (i.toString+p1.toString mod  p2) increases  with
-   * each successive  i.  The idea is  to find the smallest  x so that
-   * ax - p_{2}y + c = 0 (so that the concatenated number is divisible
-   * by p_{2}).
+   * for y (where d is the number of digits in p_{1}).
    */
   def compute(p1: Int, p2: Int) = {
-    val c = ("1" + p1.toString).toInt % p2
-    val a = (("2" + p1.toString).toInt % p2) - c
-    val (x, y) = extendedEuclidean(a, -p2) match { case (x, y, _, _, _) => (BigInt(x), BigInt(y)) }
-    val answer = List( // work around extended Euclidean algorithm issues
-      x * -c + 1,
-      x * c + 1,
-      makePositive(x * -c, p2) + 1,
-      makePositive(x * c, p2) + 1)
-      .map({ left => BigInt(left.toString + p1.toString) })
-      .filter({ n => n % p2 == 0 && n > 0 })
-      .sorted
+    val d = p1.toString.length
+    val zeros = power(10, p1.toString.length)
+    val y = extendedEuclidean(p2, -zeros % p2 + p2) match { case (_, y, _, _, _) => BigInt(y) }
+    val left = (y * p1) % p2
 
-    assert(answer.nonEmpty && answer.head % p2 == 0, s"p1=$p1 p2=$p2 c=$c a=$a x=$x y=$y answer=$answer")
-    answer.head
+    (if (left < 0) left + p2; else left) * zeros + p1
   }
 
-  val solution = primes.takeWhile(_ <= limit).drop(2).sliding(2)
+  val solution = primes.drop(2).sliding(2)
+    .takeWhile({ case Stream(p1, p2) => p1 <= limit }) // This was a gotcha
     .map({ case Stream(p1, p2) => compute(p1, p2) })
     .sum
 
