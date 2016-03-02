@@ -133,12 +133,12 @@ object Euler {
    * Use Newton's  method to  find a  BigDecimal approximation  of the
    * square root of a given number.
    */
-  def sqrtBig(n : Int, iterations : Int = 100) = {
+  def sqrtBig(n : BigInt, iterations : Int = 100) = {
     val mc = new java.math.MathContext(iterations)
     val N = BigDecimal(n,mc)
     val two = BigDecimal(2,mc)
 
-    var xn = BigDecimal(sqrt(n), mc)
+    var xn = BigDecimal(1, mc)
     var i = iterations
     while (i >= 0) {
       val change = (xn - N/xn)/two
