@@ -1,16 +1,9 @@
 package com.daystrom_data_concepts
 
 
-object p134 {
+object p135 {
   val limit = 1000000
 
-  /**
-    * A way to quickly solve
-    *
-    * -16x_{1}^{2} + y_{1}^{2} - 64n = 0
-    *
-    * where x_{1} := 2a - 2d and y_{1} := -16d would be better.
-    */
   def solutions(n: Int) = {
     var count = 0
 
