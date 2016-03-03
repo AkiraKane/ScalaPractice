@@ -1,7 +1,5 @@
 package com.daystrom_data_concepts
 
-import scala.collection.mutable
-
 
 object p136 {
   val limit = 50000000
