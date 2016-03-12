@@ -1,46 +1,53 @@
 package com.daystrom_data_concepts
 
-import Euler.natural
-
-import scala.collection.mutable
-import math.{acos, cos, round, sqrt, toRadians}
+import Euler.{gcd, natural}
+import math.{ceil, round, sqrt}
 
 
 object p143 {
-  val limit = 1200
+  val limit = 120000
 
-  @inline def toricelli(a: Int, b: Int, c: Int) = {
-    val angle1 = acos((a*a + b*b - c*c) / (2.0*a*b))
-    val angle2 = toRadians(60)
-    val a_to_n = a*a + b*b - 2*a*b*cos(angle1 + angle2)
-    val root = round(sqrt(a_to_n)).toInt
+  // http://www.geocities.ws/fredlb37/node9.html
+  val primitiveTriples = natural
+    .takeWhile(_ <= ceil(sqrt(limit)))
+    .flatMap({ m =>
+      natural
+        .takeWhile(_ < m)
+        .filter({ n => (m-n) % 3 != 0 && gcd(m,n) == 1})
+        .map({ n => ((m*m - n*n), (2*m*n + n*n), (m*m + n*n + m*n)) })
+    })
+    .filter({ case (p,r,_) => p+r <= limit })
 
-    if (root * root == a_to_n) root; else 0
-  }
+  val triples = primitiveTriples
+    .flatMap({ case (p,r,c) =>
+      natural
+        .map({ k => (k*p, k*r, k*c) })
+        .takeWhile({ case (p,r,c) => p+r <= limit })
+    })
 
-  def triangles() = {
-    val set = mutable.Set.empty[Int]
-    var x = 0
+  val solution = (triples ++ triples.map({ case (p,r,c) => (r,p,c) }))
+    .groupBy({ case (p,r,c) => p }).values
+    .flatMap({ list =>
+      (list ++ list).combinations(2)
+        .flatMap({ case Stream((p, r, c), (_, q, b)) =>
+          val a2 = q*q + r*r + q*r
 
-    var a = 1; while (a <= limit) {
-      var b = a+1; while (a + b <= limit) {
-        var c = b+1; while (c <= (a + b)) {
-          x += 1
-          val numerator = a*a + b*b - c*c
-          val denominator = 2.0*a*b
-          if ((numerator / denominator) >= -0.5) {
-            set += toricelli(a, b, c)
+          if (p + q + r < limit) {
+            lazy val a = round(sqrt(a2)).toInt
+            lazy val angle1 = (a*a + b*b - c*c)/(2.0*a*b)
+            lazy val angle2 = (a*a + c*c - b*b)/(2.0*a*c)
+            lazy val angle3 = (c*c + b*b - a*a)/(2.0*c*b)
+
+            if (a*a == a2 && angle1 > -0.5 && angle2 > -0.5 && angle3 > -0.5)
+              Some(p + q + r)
+            else
+              None
           }
-          c += 1
-        }
-        b += 1
-      }
-      a += 1
-    }
-    (x, set)
-  }
-
-  val solution = triangles
+          else
+            None
+        })
+    })
+    .toList.distinct.sum
 
   def main(args: Array[String]) = println(solution)
 }
