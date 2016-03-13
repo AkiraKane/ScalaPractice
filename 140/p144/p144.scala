@@ -3,7 +3,7 @@ package com.daystrom_data_concepts
 import math.{abs, sqrt}
 
 
-object p143 {
+object p144 {
   type PointType = (Double, Double)
 
   val firstPoint: PointType = (0.0, 10.1)
