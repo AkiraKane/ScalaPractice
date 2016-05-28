@@ -19,43 +19,43 @@ lazy val Dijkstra = (project in file("Dijkstra")).
   settings(commonSettings: _*).
   settings(name := "Dijkstra")
 
-lazy val p1 = (project in file("001/p1")).
+lazy val p1 = (project in file("000/p1")).
   settings(commonSettings: _*).
   settings(name := "p1")
 
-lazy val p2 = (project in file("001/p2")).
+lazy val p2 = (project in file("000/p2")).
   dependsOn(Euler).
   settings(commonSettings: _*).
   settings(name := "p2")
 
-lazy val p3 = (project in file("001/p3")).
+lazy val p3 = (project in file("000/p3")).
   dependsOn(Euler).
   settings(commonSettings: _*).
   settings(name := "p3")
 
-lazy val p4 = (project in file("001/p4")).
+lazy val p4 = (project in file("000/p4")).
   dependsOn(Euler).
   settings(commonSettings: _*).
   settings(name := "p4")
 
-lazy val p5 = (project in file("001/p5")).
+lazy val p5 = (project in file("000/p5")).
   settings(commonSettings: _*).
   settings(name := "p5")
 
-lazy val p6 = (project in file("001/p6")).
+lazy val p6 = (project in file("000/p6")).
   settings(commonSettings: _*).
   settings(name := "p6")
 
-lazy val p7 = (project in file("001/p7")).
+lazy val p7 = (project in file("000/p7")).
   dependsOn(Euler).
   settings(commonSettings: _*).
   settings(name := "p7")
 
-lazy val p8 = (project in file("001/p8")).
+lazy val p8 = (project in file("000/p8")).
   settings(commonSettings: _*).
   settings(name := "p8")
 
-lazy val p9 = (project in file("001/p9")).
+lazy val p9 = (project in file("000/p9")).
   settings(commonSettings: _*).
   settings(name := "p9")
 
