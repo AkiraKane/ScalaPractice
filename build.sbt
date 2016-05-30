@@ -684,3 +684,7 @@ lazy val p150 = (project in file("150/p150")).
 lazy val p151 = (project in file("150/p151")).
   settings(commonSettings: _*).
   settings(name := "p151")
+
+lazy val p152 = (project in file("150/p152")).
+  settings(commonSettings: _*).
+  settings(name := "p152")
