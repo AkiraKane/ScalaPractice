@@ -5,15 +5,14 @@ import scala.collection.mutable
 
 object p151 {
 
-  val cache = mutable.Map.empty[(Int, List[String]), Vector[(Int, Int)]]
-  val maxBatch = 15
+  val cache = mutable.Map.empty[List[String], Double]
 
   /**
     * Pull a piece of paper from the envelope and perform the
     * appropriate cuts.
     */
-  def pull(paper: String): Array[String] = {
-    val pattern = Array("A2", "A3", "A4", "A5")
+  def pull(paper: String): List[String] = {
+    val pattern = List("A2", "A3", "A4", "A5")
     paper match {
       case "A1" => pattern
       case "A2" => pattern.drop(1)
@@ -41,41 +40,34 @@ object p151 {
   }
 
   /**
-    * Given a batch number (≤ maxBatch) and a scenario, compute a
-    * vector of pairs of integers.  The first integer in each pair is
-    * the number of length-one scenarios which can result, and the second
-    * is the total number of scenarios which can result.
+    * Given a scenario, compute the expected of adjacent scenarios
+    * that are singletons plus one if this is a singleton, plus zero
+    * otherwise..
     */
-  def calculate(batch: Int, scenario: List[String]): Vector[(Int, Int)] = {
-    val key = (batch, scenario.sorted)
+  def calculate(scenario: List[String]): Double = {
+    val key = scenario.sorted
 
-    cache.get(key) match {
-      case Some(vector) => vector
-      case None => {
-        if (batch <= maxBatch) {
-          val scenarios = enumerate(scenario)
-          val lists = scenarios.map({ e => calculate(batch + 1, e) })
-          val num = if (scenario.length == 1) 1; else 0
-          val denom = 1
-          val value = (num, denom) +:
-            (0 until maxBatch - batch)
-            .toVector
-            .map({ i =>
-              val here = lists.map({ list => list(i) })
-              val num = here.map(_._1).sum
-              val denom = here.map(_._2).sum
-              (num, denom)
-            })
-
-          cache.put(key, value)
-          value
-        }
-        else Vector.empty[(Int, Int)]
+    (cache.get(key), scenario) match {
+      case (Some(fraction), _) => fraction
+      case (None, List()) => 0
+      case (None, List(singleton)) => {
+        val denominator = 1
+        val numerator = 1 + calculate(pull(singleton)) // this singleton, plus those from all descendant states
+        val value = numerator / denominator
+        cache.put(key, value)
+        value
+      }
+      case (None, key) => {
+        val denominator = key.length
+        val numerator = enumerate(scenario).map(calculate).sum // this non-singleton, plus those from all descendant states
+        val value =  numerator / denominator
+        cache.put(key, value)
+        value
       }
     }
   }
 
-  val answer = calculate(0, List("A1"))
+  val answer = calculate(List("A1")) - 1 - 1 // remove the first and last batch, which are guaranteed to be singletons
 
   def main(args: Array[String]) = println(answer)
 }
