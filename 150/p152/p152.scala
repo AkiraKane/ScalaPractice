@@ -9,10 +9,10 @@ object p152 {
   // only factors of 13 that appears in the ≤ 80 case, and they always
   // appear together or not at all.
   val factors = (2 to 80).filter({ n => BigInt(n).isProbablePrime(1000) }).drop(4)
-  val rootNumer = (2*2*2*2*2*2*3*3*3*5*5*7*7*13).toLong
-  val numer = rootNumer * rootNumer
+  val rootOne = (2*2*2*2*2*2*3*3*3*5*5*7*7*13).toLong
+  val one = rootOne * rootOne
   val denoms = (3 to limit).filter({ n => !factors.exists({ m => n % m == 0 }) }).toArray
-  val inverseSquares = denoms.map({ k => (numer / k) / k }).toArray
+  val inverseSquares = denoms.map({ k => (one / k) / k }).toArray
   val tails = (0 until inverseSquares.length).map({ i => inverseSquares.drop(i).sum }).toArray
 
   def tabulate(residual: Long, i: Int, solution: List[Int] = List.empty[Int]): Int = {
@@ -27,8 +27,8 @@ object p152 {
     }
   }
 
-  val thirteens = List(13, 39, 52).map({ k => (numer / k) / k }).sum
-  val answer = tabulate(numer / 4, 0) + tabulate((numer / 4) - thirteens, 0)
+  val thirteens = List(13, 39, 52).map({ k => (one / k) / k }).sum
+  val answer = tabulate(one / 4, 0) + tabulate((one / 4) - thirteens, 0)
 
   def main(args: Array[String]) = println(answer)
 }
