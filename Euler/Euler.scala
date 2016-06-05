@@ -70,12 +70,19 @@ object Euler {
   }
 
   /**
-   * Compute the value  of the Euler Totient  function, $\phi(n)$, for
-   * the     given    n.      Uses     observations    given     here:
+   * Compute the value of the Euler Totient function, $\phi(n)$, for
+   * the given n.  Uses observations given here:
    * https://en.wikipedia.org/wiki/Euler%27s_totient_function .
    */
-  def phi(n : Int) = primeFactors(n).toIterator
+  def phi(n: Int) = primeFactors(n).toIterator
     .map({ case(p,k) => pow(p,k-1).toInt * (p-1) }).product
+
+  /**
+    * Compute the sum of integer divisors of $n$.
+    */
+  def sigma(n: Int) = primeFactors(n)
+    .map({ case (p, a) => (0 to a).map({ i => pow(p,i).toInt }).sum })
+    .product
 
   lazy val natural = Stream.iterate(1)(_ + 1)
   lazy val triangular = natural.map({ n => n*(n+1)/2 })
